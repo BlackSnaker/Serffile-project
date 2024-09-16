@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serffilel</title>
+
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Подключаем иконки (например, Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Верхняя панель с вкладками -->
+        <div class="top-bar">
+            <div class="cloud-icon"><i class="fas fa-cloud"></i></div>
+            <div class="title">Serffiles</div>
+            <div class="user-icon"><i class="fas fa-user"></i></div>
+            <div class="menu-icon"><i class="fas fa-bars"></i></div>
+        </div>
+        
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab(event, 'documents')"><i class="fas fa-folder-open"></i> Документы</button>
+            <button class="tab-link" onclick="openTab(event, 'videos')"><i class="fas fa-video"></i> Видео</button>
+            <button class="tab-link" onclick="openTab(event, 'audios')"><i class="fas fa-music"></i> Музыка</button>
+        </div>
+
+        <!-- Вкладка документов -->
+        <div id="documents" class="tab-content" style="display: block;">
+            <!-- Поиск -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search..">
+                <div class="search-icon"><i class="fas fa-search"></i></div>
+            </div>
+
+            <!-- Основная панель документов -->
+            <div class="main-content">
+                <div class="file-info">
+                    <div class="file-icon"><i class="fas fa-folder"></i></div>
+                    <div class="file-details">
+                        <h1>MySerffiles</h1>
+                        <p>0 files, 0 folders</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 40%;"></div>
+                        </div>
+                        <p class="space-left">60 GB free</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Иконки папок -->
+            <div class="folder-icons">
+                <div class="folder">
+                    <div class="folder-icon"><i class="fas fa-folder"></i></div>
+                    <p>Assets</p>
+                </div>
+                <div class="folder">
+                    <div class="folder-icon"><i class="fas fa-folder"></i></div>
+                    <p>Stuff</p>
+                </div>
+                <div class="folder">
+                    <div class="folder-icon"><i class="fas fa-image"></i></div>
+                    <p>Mountain</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка с видеоплеером -->
+        <div id="videos" class="tab-content">
+            <h2>Video Player</h2>
+            <input type="file" id="video-upload" class="upload-input" accept="video/*">
+            <label for="video-upload" class="upload-button"><i class="fas fa-upload"></i> Upload Video</label>
+            <video id="video-player" controls style="display: none;">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Вкладка с аудиоплеером -->
+        <div id="audios" class="tab-content">
+            <h2>Audio Player</h2>
+            <input type="file" id="audio-upload" class="upload-input" accept="audio/*">
+            <label for="audio-upload" class="upload-button"><i class="fas fa-upload"></i> Upload Audio</label>
+            <audio id="audio-player" controls style="display: none;">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // Функция для переключения вкладок
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        // Видео загрузка и проигрывание
+        document.getElementById('video-upload').addEventListener('change', function(event) {
+            const videoPlayer = document.getElementById('video-player');
+            const file = event.target.files[0];
+            const url = URL.createObjectURL(file);
+            videoPlayer.src = url;
+            videoPlayer.style.display = 'block';
+        });
+
+        // Аудио загрузка и проигрывание
+        document.getElementById('audio-upload').addEventListener('change', function(event) {
+            const audioPlayer = document.getElementById('audio-player');
+            const file = event.target.files[0];
+            const url = URL.createObjectURL(file);
+            audioPlayer.src = url;
+            audioPlayer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
